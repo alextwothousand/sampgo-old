@@ -20,4 +20,4 @@ When you compile you will encounter an issue.
 /usr/bin/ld: ./sampgdk.c:1077: undefined reference to `dlopen'
 collect2: error: ld returned 1 exit status```
 
-Even though these are all defined, you still get the issue. If you can tackle them, god speed to you sir (or ma'am).
+Even though these are all defined, you still get the issue. If you can tackle them, make a PR and I will review & merge it. God speed to you sir (or ma'am).
