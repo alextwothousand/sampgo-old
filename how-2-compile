@@ -1,0 +1,1 @@
+CGO_ENABLED=1 CGO_FLAGS_ALLOW=-Wno-attributes GOARCH=386 GOOS=linux go build -buildmode=c-shared
