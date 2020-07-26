@@ -1,17 +1,11 @@
 package main
 
 /*
-#include "../samp-plugin-sdk/plugincommon.h"
-#include "../samp-plugin-sdk/amx/amx.h"
+#include "samp-plugin-sdk/plugincommon.h"
+#include "samp-plugin-sdk/amx/amx.h"
 #cgo CFLAGS: -Wno-attributes
 
-extern int amx_Register(AMX *amx, const AMX_NATIVE_INFO *NativeList, int number);
-
-AMX_NATIVE_INFO PluginNatives[] =
-{
-    {"Test", Test},
-    {0, 0}
-};
+#include "natives.h"
 */
 import "C"
 
@@ -19,6 +13,11 @@ import (
 	"fmt"
 	"unsafe"
 )
+
+//export Test
+func Test(amx *C.AMX, params *C.cell) {
+	fmt.Println("Test func was called successfully")
+}
 
 //export Supports
 func Supports() uint {
@@ -33,28 +32,24 @@ func Load(ppData *unsafe.Pointer) bool {
 }
 
 //export Unload
-func Unload() {
+func Unload() bool {
 	fmt.Println("Called main.go#Unload")
+	return true
 }
 
 //export AmxLoad
-func AmxLoad(amx *C.AMX) {
+func AmxLoad(amx *C.AMX) C.int {
 	fmt.Println("Called main.go#AmxLoad")
 	fmt.Printf("%v\n", amx)
 
-	C.amx_Register(amx, C.PluginNatives, -1)
+	C.LoadNatives(amx)
+	return 1
 }
 
 //export AmxUnload
-func AmxUnload() C.int {
+func AmxUnload() uint {
 	fmt.Println("Called main.go#AmxUnload")
-	return 0 // equal to AMX_ERR_NONE
-}
-
-//export Test
-func Test() C.cell {
-	fmt.Println("Hello world!")
-	return 1
+	return C.AMX_ERR_NONE
 }
 
 func main() {}

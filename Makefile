@@ -6,7 +6,7 @@ GO := CGO_ENABLED=1 GOARCH=386 go
 
 default: build
 
-go-hello.so: go/main.go
+go-hello.so: main.go
 	$(GO) build -o build/$@ -buildmode=c-shared $^
 
 .ONESHELL:
