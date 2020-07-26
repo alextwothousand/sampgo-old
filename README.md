@@ -1,16 +1,19 @@
 # Maybe some Go plugins for SA-MP
+Now partially usable!
 
 ## Setup
-* You need 32 bit stuff to compile this trash
+* You need 32 bit stuff to compile
 ```sh
-sudo apt-get install gcc-multilib g++-multilib
+sudo apt-get install build-essential
+```
+```sh
+sudo pacman -S base-devel
 ```
 
 ## Running
 Make targets:
 ```
-test (default)	run the example go plugin in a samp server
-cpp-test		run the example cpp plugin
-
-clean			delete generated files
+build (default) - builds the plugin and outputs it to the build/ dir.
+update - downloads all dependencies required by samp-go-sdk.
+clean - removes all generated files
 ```
