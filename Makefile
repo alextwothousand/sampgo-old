@@ -2,7 +2,6 @@
 .PHONY: test clean
 
 # g++ with all my fancy options
-GCC := g++ -DLINUX -m32
 GO := CGO_ENABLED=1 GOARCH=386 go
 
 default: build
