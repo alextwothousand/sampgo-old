@@ -1,4 +1,4 @@
-# Maybe some Go plugins for SA-MP
+# samp-go-sdk
 Now partially usable!
 
 ## Setup
