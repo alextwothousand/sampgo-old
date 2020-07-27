@@ -1,3 +1,3 @@
-module github.com/devlexanderxyz/samp
+module github.com/devlexanderxyz/sampgo
 
 go 1.14

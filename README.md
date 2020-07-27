@@ -1,4 +1,3 @@
-# samp-go-sdk
 Now partially usable!
 
 ## Setup
