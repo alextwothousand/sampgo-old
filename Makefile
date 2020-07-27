@@ -17,5 +17,4 @@ build:
 	make go-hello.so
 
 clean:
-	rm -rf go-hello.so
-	rm -rf go-hello.h
+	rm -rf build

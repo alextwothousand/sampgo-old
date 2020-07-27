@@ -3,9 +3,9 @@ package main
 /*
 #include "samp-plugin-sdk/plugincommon.h"
 #include "samp-plugin-sdk/amx/amx.h"
-#cgo CFLAGS: -Wno-attributes
+#include "samp-plugin-sdk/sampgdk.h"
 
-#include "natives.h"
+#cgo CFLAGS: -Wno-attributes
 */
 import "C"
 
@@ -13,11 +13,6 @@ import (
 	"fmt"
 	"unsafe"
 )
-
-//export Test
-func Test(amx *C.AMX, params *C.cell) {
-	fmt.Println("Test func was called successfully")
-}
 
 //export Supports
 func Supports() uint {
@@ -40,9 +35,8 @@ func Unload() bool {
 //export AmxLoad
 func AmxLoad(amx *C.AMX) C.int {
 	fmt.Println("Called main.go#AmxLoad")
-	fmt.Printf("%v\n", amx)
-
-	C.LoadNatives(amx)
+	C.OnGameModeInit()
+	C.OnPlayerCommandText(C.int(0), C.CString("/hello world"))
 	return 1
 }
 
@@ -52,4 +46,14 @@ func AmxUnload() uint {
 	return C.AMX_ERR_NONE
 }
 
-func main() {}
+//export OnGameModeInit
+func OnGameModeInit() C.bool {
+	fmt.Println("Called main.go#OnGameModeInit")
+	return true
+}
+
+//export OnPlayerCommandText
+func OnPlayerCommandText(playerid C.int, cmdtext *C.char) C.bool {
+	fmt.Println("OnPlayerCommandText called, ", C.GoString(cmdtext))
+	return true
+}
