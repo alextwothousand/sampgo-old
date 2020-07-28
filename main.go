@@ -11,6 +11,14 @@ package main
 */
 import "C"
 
+/*
+PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
+{
+    SetGameModeText("Gamemode");
+    AddPlayerClass(0, 1958.3783f, 1343.1572f, 15.3746f, 269.1425f, 0, 0, 0, 0, 0, 0);
+    return true;
+}*/
+
 import (
 	"fmt"
 	"unsafe"
@@ -30,7 +38,8 @@ func ProcessTick() {
 //export Load
 func Load(ppData *unsafe.Pointer) bool {
 	fmt.Println("Called main.go#Load")
-	return true
+	pAMXFunctions := unsafe.Pointer(uintptr(*ppData) + C.PLUGIN_DATA_AMX_EXPORTS)
+	return C.sampgdk_Load(ppData, C.int(0))
 }
 
 //export Unload
