@@ -39,7 +39,7 @@ func ProcessTick() {
 func Load(ppData *unsafe.Pointer) bool {
 	fmt.Println("Called main.go#Load")
 	pAMXFunctions := unsafe.Pointer(uintptr(*ppData) + C.PLUGIN_DATA_AMX_EXPORTS)
-	return C.sampgdk_Load(ppData, C.int(0))
+	return C.sampgdk_Load(ppData)
 }
 
 //export Unload
