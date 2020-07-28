@@ -7,17 +7,15 @@ package main
 #define SAMPGDK_AMALGAMATION
 #include "samp-plugin-sdk/sampgdk.h"
 
+PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
+{
+	extern bool goOnGameModeInit();
+    return true;
+}
+
 #cgo CFLAGS: -Wno-attributes
 */
 import "C"
-
-/*
-PLUGIN_EXPORT bool PLUGIN_CALL OnGameModeInit()
-{
-    SetGameModeText("Gamemode");
-    AddPlayerClass(0, 1958.3783f, 1343.1572f, 15.3746f, 269.1425f, 0, 0, 0, 0, 0, 0);
-    return true;
-}*/
 
 import (
 	"fmt"
@@ -30,16 +28,17 @@ func Supports() uint {
 	return C.SUPPORTS_VERSION | C.SUPPORTS_AMX_NATIVES
 }
 
-//export ProcessTick
+/*export ProcessTick
 func ProcessTick() {
-	C.sampgdk_ProcessTick
-}
+	/ /C.sampgdk_ProcessTick
+}*/
 
 //export Load
 func Load(ppData *unsafe.Pointer) bool {
 	fmt.Println("Called main.go#Load")
 	pAMXFunctions := unsafe.Pointer(uintptr(*ppData) + C.PLUGIN_DATA_AMX_EXPORTS)
-	return C.sampgdk_Load(ppData, C.int(0))
+	//C.sampgdk_Load(ppData, C.int(0))
+	return true
 }
 
 //export Unload
@@ -60,8 +59,8 @@ func AmxUnload() uint {
 	return C.AMX_ERR_NONE
 }
 
-//export OnGameModeInit
-func OnGameModeInit() C.bool {
+//export goOnGameModeInit
+func goOnGameModeInit() C.bool {
 	fmt.Println("Called main.go#OnGameModeInit")
 	return true
 }
