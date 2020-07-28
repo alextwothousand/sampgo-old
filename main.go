@@ -32,14 +32,14 @@ func Supports() uint {
 
 //export ProcessTick
 func ProcessTick() {
-	C.ProcessTick()
+	C.sampgdk_ProcessTick
 }
 
 //export Load
 func Load(ppData *unsafe.Pointer) bool {
 	fmt.Println("Called main.go#Load")
 	pAMXFunctions := unsafe.Pointer(uintptr(*ppData) + C.PLUGIN_DATA_AMX_EXPORTS)
-	return C.sampgdk_Load(ppData)
+	return C.sampgdk_Load(ppData, C.int(0))
 }
 
 //export Unload
