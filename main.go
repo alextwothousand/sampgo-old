@@ -3,6 +3,8 @@ package main
 /*
 #include "samp-plugin-sdk/plugincommon.h"
 #include "samp-plugin-sdk/amx/amx.h"
+
+#define SAMPGDK_AMALGAMATION
 #include "samp-plugin-sdk/sampgdk.h"
 
 #cgo CFLAGS: -Wno-attributes
@@ -20,6 +22,11 @@ func Supports() uint {
 	return C.SUPPORTS_VERSION | C.SUPPORTS_AMX_NATIVES
 }
 
+//export ProcessTick
+func ProcessTick() {
+	C.ProcessTick()
+}
+
 //export Load
 func Load(ppData *unsafe.Pointer) bool {
 	fmt.Println("Called main.go#Load")
@@ -35,8 +42,6 @@ func Unload() bool {
 //export AmxLoad
 func AmxLoad(amx *C.AMX) C.int {
 	fmt.Println("Called main.go#AmxLoad")
-	C.OnGameModeInit()
-	C.OnPlayerCommandText(C.int(0), C.CString("/hello world"))
 	return 1
 }
 
@@ -52,8 +57,10 @@ func OnGameModeInit() C.bool {
 	return true
 }
 
-//export OnPlayerCommandText
-func OnPlayerCommandText(playerid C.int, cmdtext *C.char) C.bool {
-	fmt.Println("OnPlayerCommandText called, ", C.GoString(cmdtext))
+//export OnPlayerConnect
+func OnPlayerConnect(playerid C.int) C.bool {
+	fmt.Println("OnPlayerConnect called for %d", int(playerid))
 	return true
 }
+
+func main() {}
